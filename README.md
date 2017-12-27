@@ -1,10 +1,12 @@
 # To run:
 ```
 yarn install 
-
-./node_modules/.bin/parcel build src/index.html --public-url ./
 node src/server/index.js
 ```
 
-Status in this iteration:
-Able to run parcel from the commandline and start up and express server and se from the browser that the modules is resolved correctly.
+# What is happening
+
+You should find all the magic in `src/server/index.js`.
+
+we are using parcel to take a html representation from a file and generate it on demand.
+
