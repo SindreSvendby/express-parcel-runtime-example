@@ -4,6 +4,9 @@
             <div id="inject-target">
                 Some static content
             </div>
-            <script src="./client.js"></script>
+            <script type="module">
+                import { main } from './client.mjs';
+                main();
+            </script>
         </body>
 </html>

@@ -1,31 +1,41 @@
 const fs = require('fs')
+var tmp = require('tmp');
 const express = require('express')
 const Bundler = require('parcel-bundler')
 const app = express()
 // var expressParcelMiddleware = require('../express-parcel-middleware')
 
+// const parcelExpressMiddleware = async (req, res, next) => {
+//     const option = {
+//         publicURL: "./_parcel",
+//         outDir: './dist/_parcel',
+//         hmr: false,
+//     }
 
-app.use(function (req, res, next) {
-    console.log('Time:', Date.now())
-    next()
-  })
+//     const send = res.send.bind(res);
 
-app.get('/', async (req, res) => {
-    const option = {
-        publicURL: "./_parcel",
-        outDir: '../../dist/_parcel',
-        hmr: false,
-    }
-    const bundler = new Bundler('src/index.html', option)
-    const bundleInfo = await bundler.bundle()
-    
-    const content = fs.readFileSync(bundleInfo.name, {  'encoding': 'UTF-8'});
-    res.type('html');
-    res.send(content)
-})
+//     res.send = async (content) => {
+        
+//         //  TODO: Horrible hack! Creates a file and write content to it.
+//         //  Then passes the ref to the file to parcel, so parcel can read the content from the file!
+//         //  Did not find a way to provide content and not a filename to parcel.
+//         var tmpobj = tmp.fileSync({postfix: '.html'});
+//         console.log('File: ', tmpobj.name);
+//         console.log('Filedescriptor: ', tmpobj.fd);
+//         fs.writeFileSync(tmpobj.name, content)
+        
+//         const bundler = new Bundler(tmpobj.name, option)
+//         const bundleInfo = await bundler.bundle()
+//         console.log('bundleInfo: ', bundleInfo);
+//         return res.sendFile(bundleInfo.name)
+//     }
+//     next()
+// }
 
 
-app.use('/', express.static('dist'))
+// app.use(parcelExpressMiddleware)
+
+app.use('/', express.static('./src/es6-modules/'))
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
